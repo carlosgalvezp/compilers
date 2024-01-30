@@ -1,8 +1,5 @@
 name: gcc-build
-on:
-  push:
-    paths:
-      - 'gcc/*'
+on: push
 jobs:
   gcc-build:
     runs-on: ubuntu-latest
