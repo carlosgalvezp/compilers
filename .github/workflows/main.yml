@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build
-        run: ./gcc/build.sh
+        run: /bin/bash gcc/build.sh
