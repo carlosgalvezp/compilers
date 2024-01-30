@@ -1,8 +1,11 @@
-name: hello-world
-on: push
+name: gcc-build
+on:
+  push:
+    paths:
+      - 'gcc/*'
 jobs:
-  my-job:
+  gcc-build:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
+      - name: build
+        run: ./gcc/build.sh
