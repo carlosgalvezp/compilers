@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 UBUNTU_VERSION=20.04
-GCC_HASH=4f3b1a09d3109f03299a2ac15cfa3059596fcb1d
+GCC_HASH=f2061b2a9641c2228d4e2d86f19532ad7e93d627
 
 THIS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
