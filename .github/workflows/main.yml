@@ -13,7 +13,7 @@ jobs:
         id: version
         run: |
           GCC_TARBALL=$(basename gcc-*.tar.gz)
-          GCC_VERSION=${GCC_TARBALL%%.*}
+          GCC_VERSION=${GCC_TARBALL%.tar.gz}
           echo "GCC_TARBALL=$GCC_TARBALL" >> "$GITHUB_OUTPUT"
           echo "GCC_VERSION=$GCC_VERSION" >> "$GITHUB_OUTPUT"
 
