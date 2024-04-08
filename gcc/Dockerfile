@@ -1,10 +1,9 @@
 # Builder image
 # https://iamsorush.com/posts/build-gcc11/
 ARG UBUNTU_VERSION
-FROM ubuntu:${UBUNTU_VERSION} as builder
+FROM ubuntu:${UBUNTU_VERSION}
 
-ARG GCC_HASH
-
+# Download build dependencies
 RUN apt-get update
 RUN apt-get install --assume-yes --no-install-recommends \
     build-essential \
@@ -12,6 +11,8 @@ RUN apt-get install --assume-yes --no-install-recommends \
     curl \
     flex
 
+# Download GCC and dependencies
+ARG GCC_HASH
 WORKDIR /opt
 RUN curl -L https://github.com/gcc-mirror/gcc/archive/${GCC_HASH}.tar.gz -o ${GCC_HASH}.tar.gz
 RUN tar -xvzf ${GCC_HASH}.tar.gz
@@ -19,6 +20,7 @@ RUN tar -xvzf ${GCC_HASH}.tar.gz
 WORKDIR /opt/gcc-${GCC_HASH}
 RUN ./contrib/download_prerequisites
 
+# Build
 WORKDIR /opt/gcc-${GCC_HASH}/build
 RUN ../configure \
     --verbose \
@@ -32,6 +34,7 @@ RUN ../configure \
 RUN make -j$(nproc)
 RUN make install-strip
 
-# Final image
-FROM ubuntu:${UBUNTU_VERSION} as gcc
-COPY --from=builder /opt/gcc /opt/gcc
+# Create output tarball
+ARG GCC_TARBALL
+WORKDIR /opt/gcc
+RUN tar -cvzf $GCC_TARBALL lib lib64 usr
