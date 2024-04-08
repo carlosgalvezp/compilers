@@ -1,5 +1,9 @@
 name: gcc-build
-on: push
+on:
+  push:
+    paths:
+      - '.github/workflows/gcc.yml'
+      - 'gcc/**'
 jobs:
   gcc-build:
     runs-on: ubuntu-latest
