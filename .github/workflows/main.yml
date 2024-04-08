@@ -14,15 +14,8 @@ jobs:
         run: |
           GCC_TARBALL=$(basename gcc-*.tar.gz)
           GCC_VERSION=${GCC_TARBALL%%.*}
-          echo "$GCC_TARBALL"
-          echo "$GCC_VERSION"
           echo "GCC_TARBALL=$GCC_TARBALL" >> "$GITHUB_OUTPUT"
           echo "GCC_VERSION=$GCC_VERSION" >> "$GITHUB_OUTPUT"
-
-      - name: "Test env"
-        run: |
-          echo ${{ steps.version.outputs.GCC_VERSION }}
-          echo ${{ steps.version.outputs.GCC_TARBALL }}
 
       - name: Create Release
         id: create_release
