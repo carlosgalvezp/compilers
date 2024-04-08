@@ -5,25 +5,43 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: build
+
+      - name: Build
         run: ./gcc/build_dummy.sh
+
+      - name: Get version name
+        id: version
+        run: |
+          GCC_TARBALL=$(basename gcc-*.tar.gz)
+          GCC_VERSION=${GCC_TARBALL%%.*}
+          echo "$GCC_TARBALL"
+          echo "$GCC_VERSION"
+          echo "GCC_TARBALL=$GCC_TARBALL" >> "$GITHUB_OUTPUT"
+          echo "GCC_VERSION=$GCC_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: "Test env"
+        run: |
+          echo ${{ steps.version.outputs.GCC_VERSION }}
+          echo ${{ steps.version.outputs.GCC_TARBALL }}
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: foo
-          release_name: Release foo
+          tag_name: ${{ steps.version.outputs.GCC_VERSION }}
+          release_name: ${{ steps.version.outputs.GCC_VERSION }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
+
+      - name: Upload assets
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: ./foo.tar.gz
-          asset_name: foo.tar.gz
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.version.outputs.GCC_TARBALL }}
+          asset_name: ${{ steps.version.outputs.GCC_TARBALL }}
           asset_content_type: application/gzip
