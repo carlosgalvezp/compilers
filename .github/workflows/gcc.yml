@@ -11,7 +11,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build
-        run: ./gcc/build_dummy.sh
+        run: ./gcc/build.sh
 
       - name: Get version name
         id: version
