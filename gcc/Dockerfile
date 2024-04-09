@@ -1,4 +1,3 @@
-# Builder image
 # https://iamsorush.com/posts/build-gcc11/
 ARG UBUNTU_VERSION
 FROM ubuntu:${UBUNTU_VERSION}

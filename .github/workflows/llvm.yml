@@ -1,0 +1,44 @@
+name: llvm-build
+on:
+  push:
+    paths:
+      - '.github/workflows/llvm.yml'
+      - 'llvm/**'
+jobs:
+  llvm-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build
+        run: ./llvm/build.sh
+
+      - name: Get version name
+        id: version
+        run: |
+          LLVM_TARBALL=$(basename llvm-*.tar.gz)
+          LLVM_VERSION=${LLVM_TARBALL%.tar.gz}
+          echo "LLVM_TARBALL=$LLVM_TARBALL" >> "$GITHUB_OUTPUT"
+          echo "LLVM_VERSION=$LLVM_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.LLVM_VERSION }}
+          release_name: ${{ steps.version.outputs.LLVM_VERSION }}
+          draft: false
+          prerelease: false
+
+      - name: Upload assets
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.version.outputs.LLVM_TARBALL }}
+          asset_name: ${{ steps.version.outputs.LLVM_TARBALL }}
+          asset_content_type: application/gzip
