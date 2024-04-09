@@ -18,6 +18,6 @@ docker build \
     ${THIS_DIR}
 
 # Take GCC tarball out of image
-docker create --name tmp gcc:latest)
+docker create --name tmp gcc:latest
 docker cp tmp:/opt/gcc/$GCC_TARBALL .
 docker rm tmp

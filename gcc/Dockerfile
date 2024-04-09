@@ -27,7 +27,7 @@ RUN ../configure \
     --build=x86_64-linux-gnu \
     --host=x86_64-linux-gnu \
     --target=x86_64-linux-gnu \
-    --prefix=/opt/gcc \
+    --prefix=/opt/gcc/usr \
     --enable-checking=release \
     --enable-languages=c,c++ \
     --disable-multilib
@@ -37,4 +37,4 @@ RUN make install-strip
 # Create output tarball
 ARG GCC_TARBALL
 WORKDIR /opt/gcc
-RUN tar -cvzf $GCC_TARBALL lib lib64 usr
+RUN tar -cvzf $GCC_TARBALL usr
