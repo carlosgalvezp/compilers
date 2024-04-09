@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-UBUNTU_VERSION=20.04
-LLVM_HASH=104a827ea6de0cbe0f5faef4407552ede31d165c
+UBUNTU_VERSION=22.04
+LLVM_HASH=ca705681dff4d7b28fad84b8e6846e0463a8860d
 
 DATE=$(date +%Y%m%d%H%M%S)
 LLVM_TARBALL=llvm-${DATE}-ubuntu${UBUNTU_VERSION}-${LLVM_HASH:0:7}.tar.gz

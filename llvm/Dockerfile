@@ -9,10 +9,12 @@ RUN export DEBIAN_FRONTEND="noninteractive" && \
     ca-certificates \
     cmake \
     curl \
+    lld \
     ninja-build \
     python3
 
 # Download LLVM
+ARG LLVM_HASH
 WORKDIR /opt
 RUN curl -L https://github.com/llvm/llvm-project/archive/${LLVM_HASH}.tar.gz -o ${LLVM_HASH}.tar.gz
 RUN tar -xvzf ${LLVM_HASH}.tar.gz
@@ -28,7 +30,7 @@ RUN cmake \
     -DLLVM_LINK_LLVM_DYLIB=ON \
     -DCLANG_LINK_CLANG_DYLIB=ON \
     ../llvm
-RUN ninja -j$(nproc)
+RUN ninja
 RUN ninja install
 
 # # Create output tarball
