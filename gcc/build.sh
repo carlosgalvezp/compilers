@@ -4,8 +4,8 @@ set -euxo pipefail
 UBUNTU_VERSION=22.04
 GCC_HASH=f4f7c52472fa59993024e70848559d8bac2167ba
 
-GIT_HASH=$(git rev-parse --short HEAD)
-GCC_TARBALL=gcc-${GCC_HASH:0:7}-ubuntu${UBUNTU_VERSION}-${GIT_HASH}.tar.gz
+DATE=$(date +%Y%m%d%H%M%S)
+GCC_TARBALL=gcc-${DATE}-ubuntu${UBUNTU_VERSION}-${GCC_HASH:0:7}.tar.gz
 
 THIS_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
