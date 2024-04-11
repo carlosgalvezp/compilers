@@ -33,7 +33,8 @@ RUN cmake \
 RUN ninja
 RUN ninja install
 
-# # Create output tarball
+# Create output tarball, deleting static libraries to reduce distribution size
 ARG LLVM_TARBALL
 WORKDIR /opt/llvm
+RUN find usr -type f -iname lib*.a -delete
 RUN tar -cvzf $LLVM_TARBALL usr
