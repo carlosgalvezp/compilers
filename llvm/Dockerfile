@@ -26,6 +26,7 @@ RUN cmake \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/opt/llvm/usr \
     -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra" \
+    -DLLVM_ENABLE_RUNTIMES="compiler-rt" \
     -DLLVM_USE_LINKER=lld \
     -DLLVM_LINK_LLVM_DYLIB=ON \
     -DCLANG_LINK_CLANG_DYLIB=ON \
