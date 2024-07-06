@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 UBUNTU_VERSION=22.04
-LLVM_HASH=ca705681dff4d7b28fad84b8e6846e0463a8860d
+LLVM_HASH=f90bac99e19d4243ac52cf6e18aa374f9a8754cb
 
 DATE=$(date +%Y%m%d%H%M%S)
 LLVM_TARBALL=llvm-${DATE}-ubuntu${UBUNTU_VERSION}-${LLVM_HASH:0:7}.tar.gz
