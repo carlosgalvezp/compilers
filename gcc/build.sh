@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 UBUNTU_VERSION=22.04
-GCC_HASH=f4f7c52472fa59993024e70848559d8bac2167ba
+GCC_HASH=e78c5d0ae48b7bf539d94b77382ecc1aac260f0c
 
 DATE=$(date +%Y%m%d%H%M%S)
 GCC_TARBALL=gcc-${DATE}-ubuntu${UBUNTU_VERSION}-${GCC_HASH:0:7}.tar.gz
