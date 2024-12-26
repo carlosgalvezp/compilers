@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 
-UBUNTU_VERSION=22.04
-GCC_HASH=e78c5d0ae48b7bf539d94b77382ecc1aac260f0c
+UBUNTU_VERSION=24.04
+GCC_HASH=06867d9fa69ca6d4ded4602e6601c7153599cbff
 
 DATE=$(date +%Y%m%d%H%M%S)
 GCC_TARBALL=gcc-${DATE}-ubuntu${UBUNTU_VERSION}-${GCC_HASH:0:7}.tar.gz
